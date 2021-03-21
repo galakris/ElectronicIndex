@@ -6,22 +6,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Subject {
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private float hours;
+    private int semester;
 
-    public Subject() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Course() {
     }
 
     public String getName() {
@@ -30,5 +24,21 @@ public class Subject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public float getHours() {
+        return hours;
+    }
+
+    public void setHours(float hours) {
+        this.hours = hours;
+    }
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;
     }
 }
