@@ -1,9 +1,9 @@
 package com.example.eindex.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
 
 @Entity
 public class Course {
@@ -14,8 +14,22 @@ public class Course {
     private String name;
     private float hours;
     private int semester;
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    @JsonManagedReference
+    @JsonIgnore
+    private Subject subject;
+
 
     public Course() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -40,5 +54,13 @@ public class Course {
 
     public void setSemester(int semester) {
         this.semester = semester;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 }
