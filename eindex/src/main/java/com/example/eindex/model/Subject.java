@@ -22,6 +22,13 @@ public class Subject {
     @OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<Course> courses;
+    @OneToMany(
+            mappedBy = "subject",
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+            fetch = FetchType.LAZY
+    )
+    @JsonBackReference
+    private List<SubjectStudent> subjectStudents;
 
     public Subject() {
     }

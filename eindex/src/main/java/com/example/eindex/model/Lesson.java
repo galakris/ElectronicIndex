@@ -1,10 +1,12 @@
 package com.example.eindex.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 public class Lesson {
@@ -13,8 +15,23 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String day;
-    private LocalTime time;
+    private LocalTime startTime;
     private int length;
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    @JsonManagedReference
+    @JsonIgnore
+    private Course course;
+    @OneToMany(
+            mappedBy = "lesson",
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+            fetch = FetchType.LAZY
+    )
+    @JsonBackReference
+    private List<LessonStudent> lessonStudents;
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
 
     public Lesson() {
     }
@@ -35,12 +52,12 @@ public class Lesson {
         this.day = day;
     }
 
-    public LocalTime getTime() {
-        return time;
+    public LocalTime getStartTime() {
+        return startTime;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
     }
 
     public int getLength() {

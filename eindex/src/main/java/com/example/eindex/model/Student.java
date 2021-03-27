@@ -1,9 +1,9 @@
 package com.example.eindex.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Student {
@@ -16,6 +16,20 @@ public class Student {
     private String pesel;
     private String email;
     private String phone;
+    @OneToMany(
+            mappedBy = "student",
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+            fetch = FetchType.LAZY
+    )
+    @JsonBackReference
+    private List<SubjectStudent> subjectStudents;
+    @OneToMany(
+            mappedBy = "student",
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+            fetch = FetchType.LAZY
+    )
+    @JsonBackReference
+    private List<LessonStudent> lessonStudents;
 
     public Student() {
     }

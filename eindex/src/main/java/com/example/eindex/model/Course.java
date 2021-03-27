@@ -1,9 +1,11 @@
 package com.example.eindex.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Course {
@@ -19,6 +21,9 @@ public class Course {
     @JsonManagedReference
     @JsonIgnore
     private Subject subject;
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    @JsonBackReference
+    List<Lesson> lessons;
 
 
     public Course() {

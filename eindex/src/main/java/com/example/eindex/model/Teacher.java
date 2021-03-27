@@ -1,9 +1,9 @@
 package com.example.eindex.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Teacher {
@@ -14,6 +14,13 @@ public class Teacher {
     private String firstName;
     private String lastName;
     private String email;
+    @OneToMany(
+            mappedBy = "teacher",
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+            fetch = FetchType.LAZY
+    )
+    @JsonIgnore
+    List<Lesson> lessons;
 
     public Teacher() {
     }

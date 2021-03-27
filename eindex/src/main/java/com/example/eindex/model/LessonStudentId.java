@@ -18,7 +18,7 @@ public class LessonStudentId implements Serializable {
     }
 
     public void setLessonId(Long lessonId) {
-        lessonId = lessonId;
+        this.lessonId = lessonId;
     }
 
     public Long getStudentId() {

@@ -1,7 +1,9 @@
 package com.example.eindex.model;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -12,6 +14,16 @@ public class SubjectStudent {
     private LocalDate start;
     private int semester;
     private int deficit;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("subjectId")
+    @JsonManagedReference
+    @JsonIgnore
+    private Subject subject;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("studentId")
+    @JsonManagedReference
+    @JsonIgnore
+    private Student student;
 
     public SubjectStudent() {
     }
